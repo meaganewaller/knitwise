@@ -10,7 +10,8 @@
     "dev": "npm run dev --workspace=@knitwise/web",
     "build": "npm run build --workspace=@knitwise/web",
     "lint": "npm run lint --workspaces --if-present",
-    "typecheck": "npm run typecheck --workspaces --if-present"
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present"
   },
   "devDependencies": {
     "prettier": "^3.3.3",
