@@ -1,0 +1,29 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "plugins": [{ "name": "next" }],
+    "allowJs": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+      "@knitwise/core": ["../../packages/core/index.ts"],
+      "@knitwise/core/*": ["../../packages/core/*"],
+      "@knitwise/ui": ["../../packages/ui/index.ts"],
+      "@knitwise/ui/*": ["../../packages/ui/*"],
+      "@knitwise/storage": ["../../packages/storage/index.ts"],
+      "@knitwise/storage/*": ["../../packages/storage/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "../../packages/core/**/*.ts",
+    "../../packages/ui/**/*.tsx",
+    "../../packages/ui/**/*.ts",
+    "../../packages/storage/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
+}
