@@ -147,11 +147,12 @@ export interface AIPalette {
   slots: PaletteSlot[]
 }
 
-export type SizeTokenKind = 'text' | 'size' | 'gauge-adjustment' | 'measurement-adjustment'
-
-export interface SizeToken {
-  kind: SizeTokenKind
-  value: string
-  sizeIndex?: number
-  hidden?: boolean
-}
+export type SizeToken =
+  | { kind: 'text'; text: string }
+  | {
+      kind: 'size'
+      raw: string
+      values: number[]
+      chosen: number
+      adjusted?: string
+    }

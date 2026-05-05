@@ -5,9 +5,12 @@
   "main": "./index.ts",
   "types": "./index.ts",
   "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
     "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "vitest": "^2.1.0"
   }
 }
