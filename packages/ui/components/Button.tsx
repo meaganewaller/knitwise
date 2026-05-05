@@ -1,32 +1,33 @@
 import type { ButtonHTMLAttributes } from 'react'
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'danger'
+  variant?: 'accent' | 'primary' | 'secondary' | 'ghost' | 'danger'
   size?: 'sm' | 'md' | 'lg'
 }
 
 const variantClasses: Record<NonNullable<ButtonProps['variant']>, string> = {
-  primary: 'bg-neutral-900 text-white hover:bg-neutral-800',
-  secondary: 'bg-neutral-100 text-neutral-900 hover:bg-neutral-200',
-  ghost: 'bg-transparent text-neutral-900 hover:bg-neutral-100',
-  danger: 'bg-rose-600 text-white hover:bg-rose-500',
+  accent: 'bg-accent text-accent-fg hover:bg-ink',
+  primary: 'bg-ink text-cream hover:bg-ink-soft',
+  secondary: 'bg-paper-dark text-ink hover:bg-frame',
+  ghost: 'bg-transparent text-ink hover:bg-paper',
+  danger: 'bg-terra text-white hover:bg-ink',
 }
 
 const sizeClasses: Record<NonNullable<ButtonProps['size']>, string> = {
-  sm: 'h-8 px-3 text-sm',
+  sm: 'h-8 px-3 text-xs',
   md: 'h-10 px-4 text-sm',
-  lg: 'h-12 px-5 text-base',
+  lg: 'h-12 px-6 text-sm',
 }
 
 export function Button({
-  variant = 'primary',
+  variant = 'accent',
   size = 'md',
   className = '',
   ...rest
 }: ButtonProps) {
   return (
     <button
-      className={`inline-flex items-center justify-center rounded-md font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50 ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
+      className={`inline-flex items-center justify-center gap-2 rounded-xl font-sans font-semibold transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-50 ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
       {...rest}
     />
   )

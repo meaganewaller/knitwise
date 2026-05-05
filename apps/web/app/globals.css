@@ -1,3 +1,42 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --accent: #2d4a3e;
+    --accent-fg: #ffffff;
+    --accent-light: #c8ddd8;
+  }
+
+  [data-theme='terra'] {
+    --accent: #c4603a;
+    --accent-fg: #ffffff;
+    --accent-light: #f0d0c4;
+  }
+
+  [data-theme='gold'] {
+    --accent: #c4963a;
+    --accent-fg: #ffffff;
+    --accent-light: #f0e0c0;
+  }
+
+  [data-theme='blue'] {
+    --accent: #4a7d96;
+    --accent-fg: #ffffff;
+    --accent-light: #b8d9e8;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: theme('colors.cream');
+}
+
+::-webkit-scrollbar-thumb {
+  background: theme('colors.green.light');
+  border-radius: 99px;
+}
