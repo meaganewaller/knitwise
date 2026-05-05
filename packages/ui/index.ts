@@ -8,3 +8,8 @@ export { Spinner } from './components/Spinner'
 export type { SpinnerProps } from './components/Spinner'
 export { SectionLabel } from './components/SectionLabel'
 export type { SectionLabelProps } from './components/SectionLabel'
+export { SizedInstructions } from './components/SizedInstructions'
+export type {
+  SizedInstructionsMode,
+  SizedInstructionsProps,
+} from './components/SizedInstructions'
