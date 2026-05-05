@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import type { Project } from '@knitwise/core'
@@ -59,8 +60,11 @@ export default function LibraryPage() {
           Bring any pattern. Track every stitch. Knit your size.
         </p>
         <div className="mt-6 flex flex-wrap items-center gap-3">
-          <Button variant="accent" onClick={seedDemo}>
-            + Seed demo project
+          <Link href="/import">
+            <Button variant="accent">+ Add pattern</Button>
+          </Link>
+          <Button variant="secondary" onClick={seedDemo}>
+            Seed demo project
           </Button>
         </div>
       </header>
