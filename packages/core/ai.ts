@@ -1,13 +1,88 @@
 import type { AIPalette, PatternSection, Project, YarnEntry } from './types'
 
-// TODO: implement Anthropic API call. Should accept raw pattern text or a base64-encoded
-// PDF, send it to Claude, and return a partial Project shaped like the parsed pattern.
+const PARSE_ENDPOINT = '/api/ai/parse'
+
+interface ParseResponse {
+  title: string
+  craft: 'knitting' | 'crochet'
+  difficulty: 'beginner' | 'easy' | 'intermediate' | 'advanced'
+  description: string
+  sizes: string[]
+  gauge: string
+  gaugeData: { sts: number | null; rows: number | null; per: number }
+  needles: string
+  yarn: Array<{ name: string; weight: string; amount: string; color: string }>
+  sections: Array<{
+    id: string
+    title: string
+    instructions: string
+    estimatedRows: number
+  }>
+  abbreviations: Record<string, string>
+  notes: string
+}
+
+interface ErrorResponse {
+  error: string
+}
+
+function isErrorResponse(value: unknown): value is ErrorResponse {
+  return (
+    typeof value === 'object' &&
+    value !== null &&
+    'error' in value &&
+    typeof (value as ErrorResponse).error === 'string'
+  )
+}
+
 export async function parsePattern(
-  _text: string,
-  _isPDF?: boolean,
-  _pdfB64?: string,
+  text: string,
+  isPDF?: boolean,
+  pdfB64?: string,
 ): Promise<Partial<Project>> {
-  throw new Error('parsePattern: not implemented')
+  const body = isPDF ? { pdfB64 } : { text }
+  const response = await fetch(PARSE_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  })
+
+  if (!response.ok) {
+    let message = `Parse failed: ${response.status}`
+    try {
+      const errBody = (await response.json()) as unknown
+      if (isErrorResponse(errBody)) message = errBody.error
+    } catch {
+      // body wasn't json — keep status-line message
+    }
+    throw new Error(message)
+  }
+
+  const data = (await response.json()) as ParseResponse
+
+  const yarn: YarnEntry[] = data.yarn.map((y) => ({
+    name: y.name,
+    weight: y.weight,
+    amount: y.amount,
+    color: y.color,
+    status: 'need',
+  }))
+
+  return {
+    title: data.title,
+    craft: data.craft,
+    difficulty: data.difficulty,
+    description: data.description,
+    sizes: data.sizes,
+    gauge: data.gauge,
+    gaugeData: data.gaugeData,
+    needles: data.needles,
+    yarn,
+    sections: data.sections,
+    abbreviations: data.abbreviations,
+    notes: data.notes,
+    rawText: isPDF ? '' : text,
+  }
 }
 
 // TODO: implement palette suggestion. Given a pattern's title/description/yarn requirements
