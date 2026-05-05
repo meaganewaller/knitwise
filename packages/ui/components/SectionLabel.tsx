@@ -7,10 +7,10 @@ export interface SectionLabelProps {
 
 export function SectionLabel({ children, className = '' }: SectionLabelProps) {
   return (
-    <h3
-      className={`text-xs font-semibold uppercase tracking-wider text-neutral-500 ${className}`}
+    <div
+      className={`font-mono text-[0.62rem] font-medium uppercase tracking-eyebrow text-green-mid ${className}`}
     >
       {children}
-    </h3>
+    </div>
   )
 }
