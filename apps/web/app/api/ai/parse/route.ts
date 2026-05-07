@@ -2,6 +2,7 @@ import Anthropic from '@anthropic-ai/sdk'
 import { zodOutputFormat } from '@anthropic-ai/sdk/helpers/zod'
 import { type NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod/v4'
+import type { ZodType } from 'zod'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60
@@ -125,7 +126,9 @@ export async function POST(request: NextRequest) {
       ],
       messages: [{ role: 'user', content: userContent }],
       output_config: {
-        format: zodOutputFormat(ParsedPatternSchema),
+        // SDK 0.93.0 types import ZodType from 'zod' (v3) but the runtime imports from 'zod/v4'.
+        // Schemas must be v4 at runtime; cast to satisfy the v3-typed signature.
+        format: zodOutputFormat(ParsedPatternSchema as unknown as ZodType<ParsedPattern>),
       },
     })
 
