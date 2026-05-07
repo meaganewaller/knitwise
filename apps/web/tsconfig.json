@@ -4,7 +4,6 @@
     "plugins": [{ "name": "next" }],
     "allowJs": true,
     "noEmit": true,
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
       "@knitwise/core": ["../../packages/core/index.ts"],
