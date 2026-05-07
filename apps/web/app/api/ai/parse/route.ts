@@ -1,7 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk'
 import { zodOutputFormat } from '@anthropic-ai/sdk/helpers/zod'
 import { type NextRequest, NextResponse } from 'next/server'
-import { z } from 'zod'
+import { z } from 'zod/v4'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60
